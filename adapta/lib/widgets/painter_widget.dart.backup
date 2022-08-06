@@ -1,0 +1,350 @@
+// ignore_for_file: depend_on_referenced_packages
+
+import 'dart:typed_data';
+
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:scribble/scribble.dart';
+
+import 'package:adapta/providers/providers.dart';
+
+// ignore: must_be_immutable
+class PainterWidget extends StatelessWidget {
+  ScribbleNotifier notifier = ScribbleNotifier();
+
+  final ScreenshotController screenshotController;
+
+  PainterWidget({
+    Key? key,
+    required this.screenshotController,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    bool isEditorActive = context.watch<PainterProvider>().isEditorActive;
+
+    return Visibility(
+      visible: isEditorActive,
+      child: Scaffold(
+        /*
+        appBar: AppBar(
+          title: Text(widget.title),
+          leading: IconButton(
+            icon: const Icon(Icons.save),
+            tooltip: "Save to Image",
+            onPressed: () => _saveImage(context),
+          ),
+        ),
+        */
+
+        backgroundColor: Colors.white.withAlpha(0),
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height * 2,
+          child: Stack(
+            children: [
+              Scribble(
+                notifier: notifier,
+                drawPen: true,
+              ),
+              SizedBox(
+                width: 58,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    child: Column(
+                      children: [
+                        _buildColorToolbar(context),
+                        const Divider(
+                          height: 15,
+                        ),
+                        _buildStrokeToolbar(context),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _saveImage(BuildContext context) async {
+/*     final image = await notifier.renderImage();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Tu imagen"),
+        content: Image.memory(image.buffer.asUint8List()),
+      ),
+    ); */
+    print("Entrando a guardar imagen");
+    screenshotController
+        .capture(delay: const Duration(milliseconds: 10))
+        .then((capturedImage) async {
+      showCapturedWidget(context, capturedImage!);
+
+      _saved(capturedImage);
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
+
+  _saved(Uint8List image) async {
+    final result = await ImageGallerySaver.saveImage(image);
+  }
+
+  Future<dynamic> showCapturedWidget(
+      BuildContext context, Uint8List capturedImage) {
+    return showDialog(
+      useSafeArea: false,
+      context: context,
+      builder: (context) => Scaffold(
+        appBar: AppBar(
+          title: const Text("Imagen guardada en galería"),
+        ),
+        body: Center(child: Image.memory(capturedImage)),
+      ),
+    );
+  }
+
+  Widget _buildStrokeToolbar(BuildContext context) {
+    return StateNotifierBuilder<ScribbleState>(
+      stateNotifier: notifier,
+      builder: (context, state, _) => Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          for (final w in notifier.widths)
+            _buildStrokeButton(
+              context,
+              strokeWidth: w,
+              state: state,
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStrokeButton(
+    BuildContext context, {
+    required double strokeWidth,
+    required ScribbleState state,
+  }) {
+    final selected = state.selectedWidth == strokeWidth;
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: Material(
+        elevation: selected ? 4 : 0,
+        shape: const CircleBorder(),
+        child: InkWell(
+          onTap: () => notifier.setStrokeWidth(strokeWidth / 2),
+          customBorder: const CircleBorder(),
+          child: AnimatedContainer(
+            duration: kThemeAnimationDuration,
+            width: strokeWidth * 2,
+            height: strokeWidth * 2,
+            decoration: BoxDecoration(
+                color: state.map(
+                  drawing: (s) => Color(s.selectedColor),
+                  erasing: (_) => Colors.transparent,
+                ),
+                border: state.map(
+                  drawing: (_) => null,
+                  erasing: (_) => Border.all(width: 1),
+                ),
+                borderRadius: BorderRadius.circular(50.0)),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildColorToolbar(BuildContext context) {
+    return StateNotifierBuilder<ScribbleState>(
+      stateNotifier: notifier,
+      builder: (context, state, _) => Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _buildClosePainter(context),
+          const SizedBox(
+            height: 2.0,
+          ),
+          _buildUndoButton(context),
+          const SizedBox(
+            height: 2.0,
+          ),
+          _buildRedoButton(context),
+          const SizedBox(
+            height: 2.0,
+          ),
+          _buildClearButton(context),
+          const Divider(
+            height: 10.0,
+          ),
+          _buildPointerModeSwitcher(context,
+              penMode:
+                  state.allowedPointersMode == ScribblePointerMode.penOnly),
+          const SizedBox(
+            height: 2.0,
+          ),
+          _buildSaveImage(context),
+          const Divider(
+            height: 10.0,
+          ),
+          _buildEraserButton(context, isSelected: state is Erasing),
+          _buildColorButton(context, color: Colors.black, state: state),
+          _buildColorButton(context, color: Colors.red, state: state),
+          _buildColorButton(context, color: Colors.green, state: state),
+          _buildColorButton(context, color: Colors.blue, state: state),
+          _buildColorButton(context, color: Colors.yellow, state: state),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSaveImage(BuildContext context) {
+    return FloatingActionButton.small(
+        onPressed: () => _saveImage(context),
+        tooltip: "Guardar imagen",
+        child: const AnimatedSwitcher(
+          duration: kThemeAnimationDuration,
+          child: Icon(
+            Icons.save,
+            key: ValueKey(true),
+          ),
+        ));
+    /*return IconButton(
+      icon: const Icon(Icons.save),
+      tooltip: "Save to Image",
+      onPressed: () => _saveImage(context),
+    );*/
+  }
+
+  Widget _buildPointerModeSwitcher(BuildContext context,
+      {required bool penMode}) {
+    return FloatingActionButton.small(
+      onPressed: () => notifier.setAllowedPointersMode(
+        penMode ? ScribblePointerMode.all : ScribblePointerMode.penOnly,
+      ),
+      tooltip:
+          "Cambiar modo de escritura a ${penMode ? "con el dedo" : "con pen"}",
+      child: AnimatedSwitcher(
+        duration: kThemeAnimationDuration,
+        child: !penMode
+            ? const Icon(
+                Icons.touch_app,
+                key: ValueKey(true),
+              )
+            : const Icon(
+                Icons.do_not_touch,
+                key: ValueKey(false),
+              ),
+      ),
+    );
+  }
+
+  Widget _buildEraserButton(BuildContext context, {required bool isSelected}) {
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: FloatingActionButton.small(
+        tooltip: "Borrar",
+        backgroundColor: const Color(0xFFF7FBFF),
+        elevation: isSelected ? 10 : 2,
+        shape: !isSelected
+            ? const CircleBorder()
+            : RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+        onPressed: notifier.setEraser,
+        child: const Icon(Icons.cleaning_services_outlined,
+            color: Colors.blueGrey),
+      ),
+    );
+  }
+
+  Widget _buildColorButton(
+    BuildContext context, {
+    required Color color,
+    required ScribbleState state,
+  }) {
+    final isSelected = state is Drawing && state.selectedColor == color.value;
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: FloatingActionButton.small(
+          backgroundColor: color,
+          elevation: isSelected ? 10 : 2,
+          shape: !isSelected
+              ? const CircleBorder()
+              : RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+          child: Container(),
+          onPressed: () => notifier.setColor(color)),
+    );
+  }
+
+  Widget _buildClosePainter(
+    BuildContext context,
+  ) {
+    return FloatingActionButton.small(
+      tooltip: "Cerrar Painter",
+      onPressed: () {
+        Provider.of<PainterProvider>(context, listen: false)
+            .desactivarPainter();
+      },
+      disabledElevation: 0,
+      backgroundColor: Colors.red,
+      child: const Icon(
+        Icons.close,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget _buildUndoButton(
+    BuildContext context,
+  ) {
+    return FloatingActionButton.small(
+      tooltip: "Deshacer",
+      onPressed: notifier.canUndo ? notifier.undo : null,
+      disabledElevation: 0,
+      backgroundColor: notifier.canUndo ? Colors.blueGrey : Colors.grey,
+      child: const Icon(
+        Icons.undo_rounded,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget _buildRedoButton(
+    BuildContext context,
+  ) {
+    return FloatingActionButton.small(
+      tooltip: "Rehacer",
+      onPressed: notifier.canRedo ? notifier.redo : null,
+      disabledElevation: 0,
+      backgroundColor: notifier.canRedo ? Colors.blueGrey : Colors.grey,
+      child: const Icon(
+        Icons.redo_rounded,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget _buildClearButton(BuildContext context) {
+    return FloatingActionButton.small(
+      tooltip: "Limpiar",
+      onPressed: notifier.clear,
+      disabledElevation: 0,
+      backgroundColor: Colors.blueGrey,
+      child: const Icon(Icons.delete),
+    );
+  }
+}
