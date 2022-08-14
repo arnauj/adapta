@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:screenshot/screenshot.dart';
 
 import 'package:adapta/models/models.dart';
-import 'package:adapta/providers/providers.dart';
 import 'package:adapta/screens/screens.dart';
-import 'package:adapta/widgets/widgets.dart';
 
 class AppRoutes {
   static const initialRoute = HomeScreen.route;
 
   static final menuOptions = <MenuOption>[
     MenuOption(
-        route: AlertScreen.route,
-        name: 'Alertas - Alerts',
-        screen: const AlertScreen(),
-        icon: Icons.add_alert_outlined),
+      route: AlertScreen.route,
+      name: 'Alertas - Alerts',
+      screen: const AlertScreen(),
+      icon: Icons.add_alert_outlined,
+    ),
+    MenuOption(
+      route: OpenPdf.route,
+      name: 'Carga PDF',
+      screen: const OpenPdf(),
+      icon: Icons.picture_as_pdf,
+    ),
+    MenuOption(
+      route: DisplayImage.route,
+      icon: Icons.image,
+      name: 'Imagen',
+      screen: const DisplayImage(),
+    ),
+    MenuOption(
+      route: OfficeFormat.route,
+      name: 'Excel, PPT, DOC..',
+      screen: const OfficeFormat(),
+      icon: Icons.file_copy,
+    ),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {
@@ -39,19 +54,7 @@ class AppRoutes {
   }
 
   static Widget _loadFirstScreen(Widget firstWidget) {
-    ScreenshotController screenshotController = ScreenshotController();
-
-    return Screenshot(
-      controller: screenshotController,
-      child: SafeArea(
-        child: Stack(
-          children: [
-            firstWidget,
-            PainterWidget(screenshotController: screenshotController),
-          ],
-        ),
-      ),
-    );
+    return firstWidget;
   }
 
   // static Map<String, Widget Function(BuildContext)> routes = {

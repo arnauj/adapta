@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'package:adapta/models/models.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:adapta/screens/screens.dart';
 import 'package:adapta/widgets/widgets.dart';
-import 'package:adapta/providers/providers.dart';
-import 'package:adapta/theme/app_theme.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,12 +13,185 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final Size size = MediaQuery.of(context).size;
+
+    return Scaffold(
       body: Center(
-        child: Text("ADAPTA"),
+        child: GridView.count(
+          primary: false,
+          // physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(20),
+
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          crossAxisCount: size.width > size.height ? 5 : 4,
+          children: <Widget>[
+            BoxIntroWidget(
+              texto: 'PDF',
+              icon: Icons.picture_as_pdf,
+              color: Colors.red,
+              onTap: () async {
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: ['pdf'],
+                );
+
+                if (result != null) {
+                  //File file = File();
+
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushNamed(
+                    context,
+                    OpenPdf.route,
+                    arguments: result.files.single.path.toString(),
+                  );
+                } else {
+                  // User canceled the picker
+                }
+
+                //
+              },
+            ),
+            BoxIntroWidget(
+              texto: 'Imágenes',
+              icon: Icons.photo_library,
+              color: Colors.blue,
+              onTap: () async {
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: ['jpg', 'gif', 'png'],
+                );
+
+                if (result != null) {
+                  //File file = File();
+
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushNamed(
+                    context,
+                    DisplayImage.route,
+                    arguments: result.files.single.path.toString(),
+                  );
+                } else {
+                  // User canceled the picker
+                }
+
+                //
+              },
+            ),
+            BoxIntroWidget(
+              texto: 'FP',
+              icon: Icons.work_sharp,
+              color: Colors.green,
+              onTap: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('En desarrollo'),
+                  content: const Text(
+                      'Se irán añadiendo ejercicios de las diferentes familias. Si quieres enviar aportar alguna idea, envía un email a juanra.curbelo@cifpzonzamas.es'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            BoxIntroWidget(
+              texto: 'Secundaria',
+              icon: Icons.school,
+              color: Colors.brown,
+              onTap: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('En desarrollo'),
+                  content: const Text(
+                      'Se irán añadiendo ejercicios de las diferentes especialidades. Si quieres enviar aportar alguna idea, envía un email a juanra.curbelo@cifpzonzamas.es'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            BoxIntroWidget(
+              texto: 'Primaria',
+              icon: Icons.child_care,
+              color: Colors.pink,
+              onTap: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('En desarrollo'),
+                  content: const Text(
+                      'Se irán añadiendo ejercicios de las diferentes especialidades. Si quieres enviar aportar alguna idea, envía un email a juanra.curbelo@cifpzonzamas.es'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            /*
+            BoxIntroWidget(
+              texto: 'Excel, PPT, DOC..',
+              icon: Icons.file_copy,
+              color: Colors.green,
+              onTap: () async {
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: [
+                    'pdf',
+                    'docx',
+                    'doc',
+                    'xlsx',
+                    'xls',
+                    'pptx',
+                    'ppt',
+                    'pdf',
+                    'txt',
+                  ],
+                );
+
+                if (result != null) {
+                  //File file = File();
+
+                  // ignore: use_build_context_synchronously
+
+                  Navigator.pushNamed(
+                    context,
+                    OfficeFormat.route,
+                    arguments: result.files.single.path.toString(),
+                  );
+                } else {
+                  // User canceled the picker
+                }
+
+                //
+              },
+            ),*/
+            const Card(
+              elevation: 2,
+            ),
+            const Card(
+              elevation: 2,
+            ),
+            const Card(
+              elevation: 2,
+            ),
+            const Card(
+              elevation: 2,
+            ),
+            const Card(
+              elevation: 2,
+            ),
+          ],
+        ),
       ),
       //appBar: AppBar(title: Center(child: Text("ADAPTA"))),
-      floatingActionButton: FloatinActionButtonGeneralWidget(),
     );
   }
 }

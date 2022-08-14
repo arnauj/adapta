@@ -1,15 +1,12 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'dart:ffi';
 import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter/rendering.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:scribble/scribble.dart';
@@ -153,12 +150,13 @@ class _PainterWidgetState extends State<PainterWidget> {
 
       _saved(capturedImage);
     }).catchError((onError) {
+      // ignore: avoid_print
       print(onError);
     });
   }
 
   _saved(Uint8List image) async {
-    final result = await ImageGallerySaver.saveImage(image);
+    //final result = await ImageGallerySaver.saveImage(image);
   }
 
   Future<dynamic> showCapturedWidget(
@@ -394,6 +392,7 @@ class _PainterWidgetState extends State<PainterWidget> {
   }
 }
 
+// ignore: must_be_immutable
 class _ColorPicker extends StatefulWidget {
   final ScribbleNotifier notifier;
   Function isSelected;
@@ -411,8 +410,8 @@ class _ColorPicker extends StatefulWidget {
 }
 
 class _ColorPickerState extends State<_ColorPicker> {
-  Color pickerColor = Color(0xff443a49);
-  Color currentColor = Color(0xff443a49);
+  Color pickerColor = const Color(0xff443a49);
+  Color currentColor = const Color(0xff443a49);
   int cargados = 0;
 
   void changeColor(Color newColor) {
