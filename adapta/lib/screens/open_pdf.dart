@@ -50,6 +50,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// ignore: depend_on_referenced_packages
+import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class OpenPdf extends StatefulWidget {
   static const String route = 'openpdf';
@@ -62,11 +64,13 @@ class OpenPdf extends StatefulWidget {
 
 class _OpenPdfState extends State<OpenPdf> {
   late PdfViewerController _pdfViewerController;
-  //late PdfTextSearchResult _searchResult;
+  late TextEditingController _searchTextEditingController;
+  late PdfTextSearchResult _searchResult;
 
   @override
   void initState() {
     _pdfViewerController = PdfViewerController();
+    _searchTextEditingController = TextEditingController();
     super.initState();
   }
 
@@ -76,23 +80,29 @@ class _OpenPdfState extends State<OpenPdf> {
     final GlobalKey<SfPdfViewerState> pdfViewerKey = GlobalKey();
 
     return Scaffold(
-      /*appBar: AppBar(
-        title: Text('Syncfusion Flutter PdfViewer'),
+      appBar: AppBar(
+        title: TextField(
+          controller: _searchTextEditingController,
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.search,
               color: Colors.white,
             ),
             onPressed: () async {
-              _searchResult = await _pdfViewerController.searchText('El Plan',
-                  searchOption: TextSearchOption.caseSensitive);
+              _searchResult = await _pdfViewerController
+                  .searchText(_searchTextEditingController.text);
+              // ignore: avoid_print
               print(
-                  'Total instance count: ${_searchResult.totalInstanceCount}');
+                  'Total instance count: ${_searchResult.totalInstanceCount} ${_searchTextEditingController.text}');
             },
           ),
         ],
-      ),*/
+      ),
       body: SfPdfViewer.file(
         File(file.toString()),
         controller: _pdfViewerController,

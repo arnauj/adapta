@@ -13,11 +13,9 @@ class DisplayImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final file = ModalRoute.of(context)!.settings.arguments;
 
-    return Container(
-      child: PhotoView(
-        imageProvider: AssetImage(
-          file.toString(),
-        ),
+    return PhotoView(
+      imageProvider: FileImage(
+        File(file.toString()),
       ),
     );
     //Image.file(File(file.toString()));

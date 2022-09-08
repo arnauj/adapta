@@ -34,21 +34,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        floatingActionButton: const FloatinActionButtonGeneralWidget(),
-        body: Screenshot(
-          controller: screenshotController,
-          child: Stack(
-            children: [
-              MaterialApp(
-                debugShowCheckedModeBanner: false,
-                initialRoute: AppRoutes.initialRoute,
-                routes: AppRoutes.getAppRoutes(),
-              ),
-              PainterWidget(screenshotController: screenshotController),
-            ],
-          ),
+    return Scaffold(
+      floatingActionButton: const FloatinActionButtonGeneralWidget(),
+      body: Screenshot(
+        controller: screenshotController,
+        child: Stack(
+          children: [
+            MaterialApp(
+              debugShowCheckedModeBanner: false,
+              initialRoute: AppRoutes.initialRoute,
+              routes: AppRoutes.getAppRoutes(),
+            ),
+            PainterWidget(screenshotController: screenshotController),
+          ],
         ),
       ),
     );
