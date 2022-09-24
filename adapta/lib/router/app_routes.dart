@@ -31,6 +31,24 @@ class AppRoutes {
       screen: const OfficeFormat(),
       icon: Icons.file_copy,
     ),
+    MenuOption(
+      route: FpScreen.route,
+      name: 'Especialidades FP',
+      screen: const FpScreen(),
+      icon: Icons.work_sharp,
+    ),
+    MenuOption(
+      route: SecundariaScreen.route,
+      name: 'Secundaria',
+      screen: const SecundariaScreen(),
+      icon: Icons.school,
+    ),
+    MenuOption(
+      route: PrimariaScreen.route,
+      name: 'Primaria',
+      screen: const PrimariaScreen(),
+      icon: Icons.child_care,
+    ),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {

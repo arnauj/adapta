@@ -84,58 +84,37 @@ class HomeScreen extends StatelessWidget {
                 texto: 'FP',
                 icon: Icons.work_sharp,
                 color: Colors.green,
-                onTap: () => showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('En desarrollo'),
-                    content: const Text(
-                        'Se irán añadiendo ejercicios de las diferentes familias. Si quieres enviar aportar alguna idea, envía un email a juanra.curbelo@cifpzonzamas.es'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                ),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    FpScreen.route,
+                    //arguments: result.files.single.path.toString(),
+                  );
+                },
               ),
               BoxIntroWidget(
                 texto: 'Secundaria',
                 icon: Icons.school,
                 color: Colors.brown,
-                onTap: () => showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('En desarrollo'),
-                    content: const Text(
-                        'Se irán añadiendo ejercicios de las diferentes especialidades. Si quieres enviar aportar alguna idea, envía un email a juanra.curbelo@cifpzonzamas.es'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                ),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    SecundariaScreen.route,
+                    //arguments: result.files.single.path.toString(),
+                  );
+                },
               ),
               BoxIntroWidget(
                 texto: 'Primaria',
                 icon: Icons.child_care,
                 color: Colors.pink,
-                onTap: () => showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('En desarrollo'),
-                    content: const Text(
-                        'Se irán añadiendo ejercicios de las diferentes especialidades. Si quieres enviar aportar alguna idea, envía un email a juanra.curbelo@cifpzonzamas.es'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                ),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    PrimariaScreen.route,
+                    //arguments: result.files.single.path.toString(),
+                  );
+                },
               ),
               /*
               BoxIntroWidget(

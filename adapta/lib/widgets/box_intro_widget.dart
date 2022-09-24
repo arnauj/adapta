@@ -64,13 +64,16 @@ class BoxIntroWidget extends StatelessWidget {
                   alignment: Alignment.center,
                   child: FittedBox(
                     fit: BoxFit.cover,
-                    child: Text(
-                      texto,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: MediaQuery.of(context).size.width * 0.02,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        texto,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width * 0.02,
+                        ),
                       ),
                     ),
                   ),
