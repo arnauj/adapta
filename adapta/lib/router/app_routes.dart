@@ -49,6 +49,18 @@ class AppRoutes {
       screen: const PrimariaScreen(),
       icon: Icons.child_care,
     ),
+    MenuOption(
+      route: InformaticaScreen.route,
+      name: 'Informática y Comunicacioines',
+      screen: const InformaticaScreen(),
+      icon: Icons.computer,
+    ),
+    MenuOption(
+      route: HammingScreen.route,
+      name: 'Código Hamming',
+      screen: const HammingScreen(),
+      icon: Icons.computer,
+    ),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {
