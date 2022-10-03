@@ -130,49 +130,50 @@ class FpScreen extends StatelessWidget {
       },
     };
 
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: GridView.count(
-              primary: false,
-              // physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: size.width > size.height ? 5 : 4,
-              children: <Widget>[
-                for (var item in familiasProfesionales)
-                  BoxIntroWidget(
-                    texto: item['nombre'],
-                    icon: item['icon'],
-                    color: Colors.green,
-                    onTap: () {
-                      if (item['siguiente']) {
-                        Navigator.pushNamed(
-                          context,
-                          item['ruta'],
-                        );
-                      } else {
-                        return showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('En desarrollo'),
-                            content: const Text(
-                                'Se irán añadiendo ejercicios de las diferentes especialidades. Si quieres enviar aportar alguna idea, envía un email a adapta@programacionfp.es'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, 'OK'),
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-                    },
-                  ),
-              ]),
-        ),
-        //appBar: AppBar(title: Center(child: Text("ADAPTA"))),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Familias Profesionales"),
+        backgroundColor: Colors.green,
+      ),
+      body: Center(
+        child: GridView.count(
+            primary: false,
+            // physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: size.width > size.height ? 5 : 4,
+            children: <Widget>[
+              for (var item in familiasProfesionales)
+                BoxIntroWidget(
+                  texto: item['nombre'],
+                  icon: item['icon'],
+                  color: Colors.green,
+                  onTap: () {
+                    if (item['siguiente']) {
+                      Navigator.pushNamed(
+                        context,
+                        item['ruta'],
+                      );
+                    } else {
+                      return showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('En desarrollo'),
+                          content: const Text(
+                              'Se irán añadiendo ejercicios de las diferentes especialidades. Si quieres enviar aportar alguna idea, envía un email a adapta@programacionfp.es'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                ),
+            ]),
       ),
     );
   }
