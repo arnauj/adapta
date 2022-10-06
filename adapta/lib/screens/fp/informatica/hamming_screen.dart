@@ -106,23 +106,23 @@ class HammingScreen extends StatelessWidget {
                   children: [
                     _CajaDigito(
                       digito: 10,
-                      color: Color.fromARGB(255, 241, 178, 40),
+                      color: const Color.fromARGB(255, 241, 178, 40),
                       colorLinea: Colors.pink,
                       posLinea: 'L',
                     ),
-                    _LineaCaja(color: Colors.pink),
+                    const _LineaCaja(color: Colors.pink),
                     _CajaDigito(
                       digito: 3,
                       color: Colors.pink,
                       colorLinea: Colors.pink,
                     ),
-                    _LineaCaja(color: Colors.pink),
+                    const _LineaCaja(color: Colors.pink),
                     _CajaDigito(
                       digito: 5,
                       color: Colors.pink,
                       colorLinea: Colors.pink,
                     ),
-                    _LineaCaja(color: Colors.pink),
+                    const _LineaCaja(color: Colors.pink),
                     _CajaDigito(
                       digito: 7,
                       color: Colors.pink,
@@ -137,7 +137,7 @@ class HammingScreen extends StatelessWidget {
                     SizedBox(height: size, width: size),
                     _CajaDigito(
                       digito: 20,
-                      color: Color.fromARGB(255, 241, 178, 40),
+                      color: const Color.fromARGB(255, 241, 178, 40),
                       colorLinea: Colors.red,
                       posLinea: 'L',
                     ),
@@ -169,7 +169,7 @@ class HammingScreen extends StatelessWidget {
                     SizedBox(height: size, width: size),
                     _CajaDigito(
                       digito: 40,
-                      color: Color.fromARGB(255, 241, 178, 40),
+                      color: const Color.fromARGB(255, 241, 178, 40),
                       colorLinea: Colors.blue,
                       posLinea: 'L',
                     ),
@@ -223,6 +223,7 @@ class _LineaCaja extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class _CajaDigito extends StatelessWidget {
   final Color color;
   final Color colorLinea;
@@ -256,12 +257,12 @@ class _CajaDigito extends StatelessWidget {
 
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: size,
           width: size,
           //color: Colors.amber,
         ),
-        this.mostrarLinea
+        mostrarLinea
             ? Padding(
                 padding: EdgeInsets.fromLTRB(
                     leftPos, size / 2.2, rightPos, size / 2.2),
@@ -297,6 +298,7 @@ class _CajaDigito extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class _CajaBinario extends StatelessWidget {
   int digito;
 
@@ -313,14 +315,15 @@ class _CajaBinario extends StatelessWidget {
         Provider.of<Hamming>(context, listen: false).cambiar(digito);
 
         //digito = digito == 0 ? 1 : 0;
+        /*
         print("Imprimoooooo" +
             Provider.of<Hamming>(context, listen: false)
                 .obtener(digito)
-                .toString());
+                .toString());*/
       },
       child: Stack(
         children: [
-          Container(
+          SizedBox(
             height: size,
             width: size,
             //color: Colors.amber,
