@@ -24,175 +24,212 @@ class HammingScreen extends StatelessWidget {
             title: const Text("Código Hamming"),
             backgroundColor: Colors.green,
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _CajaDigito(
-                      texto: "P1",
-                      color: Color.fromARGB(255, 241, 178, 40),
-                      mostrarLinea: false,
-                      digito: Provider.of<Hamming>(context, listen: false).nulo,
+          body: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _CajaDigito(
+                        texto: "P1",
+                        color: Color.fromARGB(255, 241, 178, 40),
+                        mostrarLinea: false,
+                        digito:
+                            Provider.of<Hamming>(context, listen: false).nulo,
+                      ),
+                      _CajaDigito(
+                        texto: "P2",
+                        color: Color.fromARGB(255, 241, 178, 40),
+                        mostrarLinea: false,
+                        digito:
+                            Provider.of<Hamming>(context, listen: false).nulo,
+                      ),
+                      _CajaDigito(
+                        texto: "3",
+                        color: Colors.grey,
+                        mostrarLinea: false,
+                        digito:
+                            Provider.of<Hamming>(context, listen: false).nulo,
+                      ),
+                      _CajaDigito(
+                        texto: "P4",
+                        color: Color.fromARGB(255, 241, 178, 40),
+                        mostrarLinea: false,
+                        digito:
+                            Provider.of<Hamming>(context, listen: false).nulo,
+                      ),
+                      _CajaDigito(
+                        texto: "5",
+                        color: Colors.grey,
+                        mostrarLinea: false,
+                        digito:
+                            Provider.of<Hamming>(context, listen: false).nulo,
+                      ),
+                      _CajaDigito(
+                        texto: "6",
+                        color: Colors.grey,
+                        mostrarLinea: false,
+                        digito:
+                            Provider.of<Hamming>(context, listen: false).nulo,
+                      ),
+                      _CajaDigito(
+                        texto: "7",
+                        color: Colors.grey,
+                        mostrarLinea: false,
+                        digito:
+                            Provider.of<Hamming>(context, listen: false).nulo,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _CajaBinario(
+                        digito: 1,
+                      ),
+                      _CajaBinario(
+                        digito: 2,
+                      ),
+                      _CajaBinario(
+                        digito: 3,
+                      ),
+                      _CajaBinario(
+                        digito: 4,
+                      ),
+                      _CajaBinario(
+                        digito: 5,
+                      ),
+                      _CajaBinario(
+                        digito: 6,
+                      ),
+                      _CajaBinario(
+                        digito: 7,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _CajaDigito(
+                        digito: 10,
+                        color: const Color.fromARGB(255, 241, 178, 40),
+                        colorLinea: Colors.pink,
+                        posLinea: 'L',
+                      ),
+                      const _LineaCaja(color: Colors.pink),
+                      _CajaDigito(
+                        digito: 3,
+                        color: Colors.pink,
+                        colorLinea: Colors.pink,
+                      ),
+                      const _LineaCaja(color: Colors.pink),
+                      _CajaDigito(
+                        digito: 5,
+                        color: Colors.pink,
+                        colorLinea: Colors.pink,
+                      ),
+                      const _LineaCaja(color: Colors.pink),
+                      _CajaDigito(
+                        digito: 7,
+                        color: Colors.pink,
+                        colorLinea: Colors.pink,
+                        posLinea: 'R',
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: size, width: size),
+                      _CajaDigito(
+                        digito: 20,
+                        color: const Color.fromARGB(255, 241, 178, 40),
+                        colorLinea: Colors.red,
+                        posLinea: 'L',
+                      ),
+                      _CajaDigito(
+                        digito: 3,
+                        color: Colors.red,
+                        colorLinea: Colors.red,
+                      ),
+                      const _LineaCaja(color: Colors.red),
+                      const _LineaCaja(color: Colors.red),
+                      _CajaDigito(
+                        digito: 6,
+                        color: Colors.red,
+                        colorLinea: Colors.red,
+                      ),
+                      _CajaDigito(
+                        digito: 7,
+                        color: Colors.red,
+                        colorLinea: Colors.red,
+                        posLinea: 'R',
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: size, width: size),
+                      SizedBox(height: size, width: size),
+                      SizedBox(height: size, width: size),
+                      _CajaDigito(
+                        digito: 40,
+                        color: const Color.fromARGB(255, 241, 178, 40),
+                        colorLinea: Colors.blue,
+                        posLinea: 'L',
+                      ),
+                      _CajaDigito(
+                        digito: 5,
+                        color: Colors.blue,
+                        colorLinea: Colors.blue,
+                      ),
+                      _CajaDigito(
+                        digito: 6,
+                        color: Colors.blue,
+                        colorLinea: Colors.blue,
+                      ),
+                      _CajaDigito(
+                        digito: 7,
+                        color: Colors.blue,
+                        colorLinea: Colors.blue,
+                        posLinea: 'R',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, size / 8, 0, 0),
+                child: GestureDetector(
+                  onTap: () {
+                    Provider.of<Hamming>(context, listen: false)
+                        .cambiarParidad();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.lime,
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    _CajaDigito(
-                      texto: "P2",
-                      color: Color.fromARGB(255, 241, 178, 40),
-                      mostrarLinea: false,
-                      digito: Provider.of<Hamming>(context, listen: false).nulo,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          size / 2, size / 8, size / 2, size / 8),
+                      child: Text(
+                        Provider.of<Hamming>(context, listen: true).paridadPar
+                            ? "PARIDAD PAR"
+                            : "PARIDAD IMPAR",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                    _CajaDigito(
-                      texto: "3",
-                      color: Colors.grey,
-                      mostrarLinea: false,
-                      digito: Provider.of<Hamming>(context, listen: false).nulo,
-                    ),
-                    _CajaDigito(
-                      texto: "P4",
-                      color: Color.fromARGB(255, 241, 178, 40),
-                      mostrarLinea: false,
-                      digito: Provider.of<Hamming>(context, listen: false).nulo,
-                    ),
-                    _CajaDigito(
-                      texto: "5",
-                      color: Colors.grey,
-                      mostrarLinea: false,
-                      digito: Provider.of<Hamming>(context, listen: false).nulo,
-                    ),
-                    _CajaDigito(
-                      texto: "6",
-                      color: Colors.grey,
-                      mostrarLinea: false,
-                      digito: Provider.of<Hamming>(context, listen: false).nulo,
-                    ),
-                    _CajaDigito(
-                      texto: "7",
-                      color: Colors.grey,
-                      mostrarLinea: false,
-                      digito: Provider.of<Hamming>(context, listen: false).nulo,
-                    ),
-                  ],
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _CajaBinario(
-                      digito: 1,
-                    ),
-                    _CajaBinario(
-                      digito: 2,
-                    ),
-                    _CajaBinario(
-                      digito: 3,
-                    ),
-                    _CajaBinario(
-                      digito: 4,
-                    ),
-                    _CajaBinario(
-                      digito: 5,
-                    ),
-                    _CajaBinario(
-                      digito: 6,
-                    ),
-                    _CajaBinario(
-                      digito: 7,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _CajaDigito(
-                      digito: 10,
-                      color: const Color.fromARGB(255, 241, 178, 40),
-                      colorLinea: Colors.pink,
-                      posLinea: 'L',
-                    ),
-                    const _LineaCaja(color: Colors.pink),
-                    _CajaDigito(
-                      digito: 3,
-                      color: Colors.pink,
-                      colorLinea: Colors.pink,
-                    ),
-                    const _LineaCaja(color: Colors.pink),
-                    _CajaDigito(
-                      digito: 5,
-                      color: Colors.pink,
-                      colorLinea: Colors.pink,
-                    ),
-                    const _LineaCaja(color: Colors.pink),
-                    _CajaDigito(
-                      digito: 7,
-                      color: Colors.pink,
-                      colorLinea: Colors.pink,
-                      posLinea: 'R',
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: size, width: size),
-                    _CajaDigito(
-                      digito: 20,
-                      color: const Color.fromARGB(255, 241, 178, 40),
-                      colorLinea: Colors.red,
-                      posLinea: 'L',
-                    ),
-                    _CajaDigito(
-                      digito: 3,
-                      color: Colors.red,
-                      colorLinea: Colors.red,
-                    ),
-                    const _LineaCaja(color: Colors.red),
-                    const _LineaCaja(color: Colors.red),
-                    _CajaDigito(
-                      digito: 6,
-                      color: Colors.red,
-                      colorLinea: Colors.red,
-                    ),
-                    _CajaDigito(
-                      digito: 7,
-                      color: Colors.red,
-                      colorLinea: Colors.red,
-                      posLinea: 'R',
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: size, width: size),
-                    SizedBox(height: size, width: size),
-                    SizedBox(height: size, width: size),
-                    _CajaDigito(
-                      digito: 40,
-                      color: const Color.fromARGB(255, 241, 178, 40),
-                      colorLinea: Colors.blue,
-                      posLinea: 'L',
-                    ),
-                    _CajaDigito(
-                      digito: 5,
-                      color: Colors.blue,
-                      colorLinea: Colors.blue,
-                    ),
-                    _CajaDigito(
-                      digito: 6,
-                      color: Colors.blue,
-                      colorLinea: Colors.blue,
-                    ),
-                    _CajaDigito(
-                      digito: 7,
-                      color: Colors.blue,
-                      colorLinea: Colors.blue,
-                      posLinea: 'R',
-                    ),
-                  ],
-                ),
-              ],
-            ),
+              )
+            ],
           ),
         );
       },
@@ -211,7 +248,7 @@ class _LineaCaja extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size.height / 6;
 
-    print("tamaooooooooooooooooooo ${size}");
+    //print("tamaooooooooooooooooooo ${size}");
 
     return Container(
       height: size / 10,

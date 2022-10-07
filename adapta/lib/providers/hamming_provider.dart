@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Hamming with ChangeNotifier {
+  bool _paridadPar = true;
+
   int _bitpar1 = 0;
   int _bitpar2 = 0;
   int _bitpar4 = 0;
@@ -65,6 +67,10 @@ class Hamming with ChangeNotifier {
     return _fondoBit;
   }
 
+  bool get paridadPar {
+    return _paridadPar;
+  }
+
   set bitpar1(int bitpar1) {
     _bitpar1 = bitpar1;
     notifyListeners();
@@ -125,6 +131,16 @@ class Hamming with ChangeNotifier {
     notifyListeners();
   }
 
+  set paridadPar(bool nuevaParidad) {
+    _paridadPar = nuevaParidad;
+    notifyListeners();
+  }
+
+  void cambiarParidad() {
+    _paridadPar = !_paridadPar;
+    notifyListeners();
+  }
+
   void cambiar(int nuevo_digito) {
     if (nuevo_digito == 1) {
       bit1 = bit1 == 1 ? 0 : 1;
@@ -178,14 +194,16 @@ class Hamming with ChangeNotifier {
     if (digito == 6) devolver = bit6;
     if (digito == 7) devolver = bit7;
 
+    int bitParidadImpar = _paridadPar ? 1 : 0;
+
     if (digito == 10) {
-      devolver = (bit3 + bit5 + bit7) % 2 == 0 ? 1 : 0;
+      devolver = (bit3 + bit5 + bit7 + bitParidadImpar) % 2 == 0 ? 1 : 0;
     }
     if (digito == 20) {
-      devolver = (bit3 + bit6 + bit7) % 2 == 0 ? 1 : 0;
+      devolver = (bit3 + bit6 + bit7 + bitParidadImpar) % 2 == 0 ? 1 : 0;
     }
     if (digito == 40) {
-      devolver = (bit5 + bit6 + bit7) % 2 == 0 ? 1 : 0;
+      devolver = (bit5 + bit6 + bit7 + bitParidadImpar) % 2 == 0 ? 1 : 0;
     }
 
     return devolver;
