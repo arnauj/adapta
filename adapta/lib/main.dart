@@ -27,7 +27,7 @@ void main() {
 }
 
 final Uri _url =
-    Uri.parse('https://adapta.cifpzonzamas.es/politicaPrivacidadDatos.html');
+    Uri.parse('http://adapta.cifpzonzamas.es/politicaPrivacidadDatos.html');
 
 Future<void> _launchUrl() async {
   if (!await launchUrl(_url)) {
