@@ -1,4 +1,4 @@
-package com.example.adapta
+package com.cifpzonzamas.adapta
 
 import io.flutter.embedding.android.FlutterActivity
 

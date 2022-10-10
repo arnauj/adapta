@@ -138,6 +138,8 @@ class Hamming with ChangeNotifier {
 
   void cambiarParidad() {
     _paridadPar = !_paridadPar;
+
+    cambiar(50);
     notifyListeners();
   }
 
