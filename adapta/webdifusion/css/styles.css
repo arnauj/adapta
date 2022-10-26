@@ -11569,4 +11569,24 @@ html {
   color: #e9ea2b;
 }
 
+.logoartek, .logoiesharia, .logocifpzonzamas
+{
+    margin: 0 auto;
+    padding-top: 15px;
+    font-size: 50px;
+    color: #000;
+}
+.logoiesharia{
+  width: 170px;
+}
+.logocifpzonzamas{
+  width: 150px;
+}
 
+.texto{
+  color: #000;
+}
+
+.texto a{
+  width: 100%;
+}
