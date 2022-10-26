@@ -52,7 +52,7 @@ class AppRoutes {
     MenuOption(
       route: InformaticaScreen.route,
       name: 'Informática y Comunicacioines',
-      screen: const InformaticaScreen(),
+      screen: InformaticaScreen(),
       icon: Icons.computer,
     ),
     MenuOption(

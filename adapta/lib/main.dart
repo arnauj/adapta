@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:adapta/providers/providers.dart';
 import 'package:adapta/router/app_routes.dart';
@@ -26,15 +25,6 @@ void main() {
   );
 }
 
-final Uri _url =
-    Uri.parse('http://adapta.cifpzonzamas.es/politicaPrivacidadDatos.html');
-
-Future<void> _launchUrl() async {
-  if (!await launchUrl(_url)) {
-    throw 'Could not launch $_url';
-  }
-}
-
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
@@ -56,16 +46,6 @@ class MyApp extends StatelessWidget {
               routes: AppRoutes.getAppRoutes(),
             ),
             PainterWidget(screenshotController: screenshotController),
-            Positioned(
-              bottom: 0,
-              left: MediaQuery.of(context).size.width / 2 - 100,
-              child: const Center(
-                child: ElevatedButton(
-                  onPressed: _launchUrl,
-                  child: Text('Política de Privacidad'),
-                ),
-              ),
-            ),
           ],
         ),
       ),

@@ -11590,3 +11590,14 @@ html {
 .texto a{
   width: 100%;
 }
+
+
+.playstore {
+  width: 400px;
+}
+
+@media (max-width: 400px) {
+  .playstore {
+    width: 100%;
+  }
+}

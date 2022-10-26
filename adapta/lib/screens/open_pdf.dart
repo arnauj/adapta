@@ -51,7 +51,7 @@ import 'package:flutter/material.dart';
 
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 // ignore: depend_on_referenced_packages
-import 'package:syncfusion_flutter_pdf/pdf.dart';
+//import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class OpenPdf extends StatefulWidget {
   static const String route = 'openpdf';
