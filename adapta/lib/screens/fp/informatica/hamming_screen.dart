@@ -32,8 +32,8 @@ class HammingScreen extends StatelessWidget {
                         size / 4, size / 8, size / 4, size / 8),
                     child: Text(
                       Provider.of<Hamming>(context, listen: true).paridadPar
-                          ? "PARIDAD PAR"
-                          : "PARIDAD IMPAR",
+                          ? "CAMBIAR A PARIDAD IMPAR"
+                          : "CAMBIAR A PARIDAD PAR",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
