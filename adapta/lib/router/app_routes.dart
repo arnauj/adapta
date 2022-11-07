@@ -61,6 +61,18 @@ class AppRoutes {
       screen: const HammingScreen(),
       icon: Icons.computer,
     ),
+    MenuOption(
+      route: TransversalesScreen.route,
+      name: 'Módulos Transversales',
+      screen: TransversalesScreen(),
+      icon: Icons.manage_history,
+    ),
+    MenuOption(
+      route: PrestacionDesempleoScreen.route,
+      name: 'Presetacion por desempleo',
+      screen: PrestacionDesempleoScreen(),
+      icon: Icons.work_history,
+    ),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {

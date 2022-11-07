@@ -3,30 +3,30 @@ import 'package:flutter/material.dart';
 
 import 'package:adapta/screens/screens.dart';
 
-class InformaticaScreen extends StatelessWidget {
-  InformaticaScreen({super.key});
+class TransversalesScreen extends StatelessWidget {
+  TransversalesScreen({super.key});
 
-  static const String route = 'informatica';
+  static const String route = 'transversales';
 
   final Set<Map<String, dynamic>> ejercicios = {
     {
       "titulo": "Código Hamming",
-      "ruta": HammingScreen.route,
-      "img": "assets/img/informatica/hamming.png",
+      "ruta": PrestacionDesempleoScreen.route,
+      "img": "assets/img/transversales/desempleo.png",
     },
     {
       "titulo": "Ejercicio Binario",
-      "ruta": HammingScreen.route,
+      "ruta": PrestacionDesempleoScreen.route,
       "img": "",
     },
     {
       "titulo": "Ejercicio Binario 2",
-      "ruta": HammingScreen.route,
+      "ruta": PrestacionDesempleoScreen.route,
       "img": "",
     },
     {
       "titulo": "Ejercicio Binario 3",
-      "ruta": HammingScreen.route,
+      "ruta": PrestacionDesempleoScreen.route,
       "img": "",
     },
   };
@@ -37,7 +37,7 @@ class InformaticaScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Informática y Comunicaciones"),
+        title: const Text("Módulos Transversales"),
         backgroundColor: Colors.green,
       ),
       body: Swiper(

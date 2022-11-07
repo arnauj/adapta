@@ -14,6 +14,12 @@ class FpScreen extends StatelessWidget {
 
     final Set<Map<String, dynamic>> familiasProfesionales = {
       {
+        "nombre": "Módulos Transversales",
+        "icon": Icons.manage_history,
+        "siguiente": true,
+        "ruta": TransversalesScreen.route
+      },
+      {
         "nombre": "Actividades Físicas y Deportivas",
         "icon": Icons.sports_gymnastics,
         "siguiente": false
