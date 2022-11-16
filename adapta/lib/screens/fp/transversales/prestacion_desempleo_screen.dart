@@ -20,6 +20,13 @@ class PrestacionDesempleoScreen extends StatefulWidget {
 class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
   int paso = 1;
 
+  final base1Controller = TextEditingController();
+  final base2Controller = TextEditingController();
+  final base3Controller = TextEditingController();
+  final base4Controller = TextEditingController();
+  final base5Controller = TextEditingController();
+  final base6Controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -54,8 +61,139 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
     );
   }
 
-  Text _pasoTres(Size size) {
-    return const Text("Paso 3");
+  Center _pasoTres(Size size) {
+    return Center(
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              'Bases Reguladoras',
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _cajaBaseReguladora(size, "Base 1", 1),
+              _cajaBaseReguladora(size, "Base 2", 2),
+              _cajaBaseReguladora(size, "Base 3", 3),
+              _cajaBaseReguladora(size, "Base 4", 4),
+              _cajaBaseReguladora(size, "Base 5", 5),
+              _cajaBaseReguladora(size, "Base 6", 6),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Text(
+              'Bases Reguladora Diaria',
+              style: TextStyle(fontSize: 14),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  'BRD = ',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Column(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),
+                      child: Text(
+                        (base1Controller.text == ''
+                                ? 'Base 1'
+                                : base1Controller.text) +
+                            ' + ' +
+                            (base2Controller.text == ''
+                                ? 'Base 2'
+                                : base2Controller.text) +
+                            ' + ' +
+                            (base3Controller.text == ''
+                                ? 'Base 3'
+                                : base3Controller.text) +
+                            ' + ' +
+                            (base4Controller.text == ''
+                                ? 'Base 4'
+                                : base4Controller.text) +
+                            ' + ' +
+                            (base5Controller.text == ''
+                                ? 'Base 5'
+                                : base5Controller.text) +
+                            ' + ' +
+                            (base6Controller.text == ''
+                                ? 'Base 6'
+                                : base6Controller.text),
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      '180',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  )
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  SizedBox _cajaBaseReguladora(Size size, String texto, int base) {
+    TextEditingController controlador;
+    switch (base) {
+      case 1:
+        controlador = base1Controller;
+        break;
+      case 2:
+        controlador = base2Controller;
+        break;
+      case 3:
+        controlador = base3Controller;
+        break;
+      case 4:
+        controlador = base4Controller;
+        break;
+      case 5:
+        controlador = base5Controller;
+        break;
+      default:
+        controlador = base6Controller;
+        break;
+    }
+
+    return SizedBox(
+      width: size.width / 7,
+      child: TextField(
+        style: const TextStyle(fontSize: 18),
+        controller: controlador,
+        keyboardType: TextInputType.number,
+        onChanged: (value) {
+          print(">>>>>>>>>>>>>" + value);
+        },
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: texto,
+          prefixIcon: const Icon(Icons.badge_sharp),
+          hintText: "Base reguladora $base",
+        ),
+      ),
+    );
   }
 
   Column _pasoUno(Size size) {
