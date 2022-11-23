@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cifpzonzamas.adapta">
+    package="es.cifpzonzamas.adapta">
    <application
         android:label="adapta"
         android:name="${applicationName}"

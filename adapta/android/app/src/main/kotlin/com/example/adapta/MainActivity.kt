@@ -1,4 +1,4 @@
-package com.cifpzonzamas.adapta
+package es.cifpzonzamas.adapta
 
 import io.flutter.embedding.android.FlutterActivity
 
