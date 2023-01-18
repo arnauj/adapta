@@ -27,6 +27,10 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
   final base5Controller = TextEditingController();
   final base6Controller = TextEditingController();
 
+  int diasPrestacion = 0;
+  int dias180Menos = 0;
+  int dias180Mas = 0;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -237,11 +241,11 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
     List<int> opcionesAnhos = [];
     List<int> opcionesDias = [];
 
-    for (int anho = 0; anho < 12; anho++) {
+    for (int anho = 0; anho <= 12; anho++) {
       opcionesAnhos.add(anho);
     }
 
-    for (int anho = 0; anho < 265; anho++) {
+    for (int anho = 0; anho <= 31; anho++) {
       opcionesDias.add(anho);
     }
 
@@ -258,9 +262,24 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _desplegable("Años", opcionesAnhos, size),
-            _desplegable("Meses", opcionesAnhos, size),
-            _desplegable("Días", opcionesDias, size),
+            _desplegable(
+              "Años",
+              opcionesAnhos,
+              'anho',
+              size,
+            ),
+            _desplegable(
+              "Meses",
+              opcionesAnhos,
+              'mes',
+              size,
+            ),
+            _desplegable(
+              "Días",
+              opcionesDias,
+              'dia',
+              size,
+            ),
           ],
         ),
         const SizedBox(height: 20),
@@ -274,6 +293,18 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
           onPressed: () {
             paso = 3;
             setState(() {});
+            diasPrestacion = widget.prestacionDias +
+                widget.prestacionMeses * 30 +
+                widget.prestacionAnhos * 365;
+
+            print("Días prestacion" + diasPrestacion.toString());
+
+            if (diasPrestacion <= 180) {
+              dias180Menos = diasPrestacion;
+            } else {
+              dias180Menos = 180;
+              dias180Mas = diasPrestacion - 180;
+            }
           },
           child: const Text("Continuar", textAlign: TextAlign.center),
         )
@@ -281,7 +312,26 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
     );
   }
 
-  Column _desplegable(String texto, List<int> opcionesAnhos, Size size) {
+  Column _desplegable(
+    String texto,
+    List<int> opcionesAnhos,
+    String anhoMesDia,
+    Size size,
+  ) {
+    int elementoInput = 0;
+
+    switch (anhoMesDia) {
+      case 'anho':
+        elementoInput = widget.prestacionAnhos;
+        break;
+      case 'mes':
+        elementoInput = widget.prestacionMeses;
+        break;
+      case 'dia':
+        elementoInput = widget.prestacionDias;
+        break;
+    }
+
     return Column(
       children: [
         Text(texto, style: const TextStyle(fontSize: 25)),
@@ -300,10 +350,22 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
               fillColor: Colors.greenAccent,
             ),
             dropdownColor: Colors.greenAccent,
-            value: widget.prestacionAnhos,
+            value: elementoInput,
             onChanged: (int? newValue) {
               setState(() {
-                widget.prestacionAnhos = newValue!;
+                elementoInput = newValue!;
+
+                switch (anhoMesDia) {
+                  case 'anho':
+                    widget.prestacionAnhos = newValue!;
+                    break;
+                  case 'mes':
+                    widget.prestacionMeses = newValue!;
+                    break;
+                  case 'dia':
+                    widget.prestacionDias = newValue!;
+                    break;
+                }
               });
             },
             items: opcionesAnhos.map((e) {

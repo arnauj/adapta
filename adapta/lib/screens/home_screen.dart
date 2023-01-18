@@ -148,12 +148,12 @@ class HomeScreen extends StatelessWidget {
                         'txt',
                       ],
                     );
-        
+                
                     if (result != null) {
                       //File file = File();
-        
+                
                       // ignore: use_build_context_synchronously
-        
+                
                       Navigator.pushNamed(
                         context,
                         OfficeFormat.route,
@@ -162,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                     } else {
                       // User canceled the picker
                     }
-        
+                
                     //
                   },
                 ),*/
