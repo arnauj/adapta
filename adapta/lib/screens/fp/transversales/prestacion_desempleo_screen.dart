@@ -175,7 +175,7 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
               child: Text(
-                ' = ${baseReguladoraDiaria.toStringAsFixed(2)}',
+                ' = ${baseReguladoraDiaria.toStringAsFixed(2)} €/día',
                 style: TextStyle(fontSize: 20),
               ),
             )
@@ -288,45 +288,90 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
             }
 
             //Fijar cantidades mínimas
+            bool modificadoLimiteMaximo = false;
+            bool modificadoLimiteMinimo = false;
             if (double.tryParse(numHijosController.text) == 0) {
               if (prestacionFinalMas180 < 540.41) {
                 prestacionFinalMas180 = 540.41;
+                modificadoLimiteMinimo = true;
               }
               if (prestacionFinalMenos180 < 540.41) {
                 prestacionFinalMenos180 = 540.41;
+                modificadoLimiteMinimo = true;
               }
               if (prestacionFinalMas180 > 1182.16) {
                 prestacionFinalMas180 = 1182.16;
+                modificadoLimiteMaximo = true;
               }
-              if (prestacionFinalMenos180 < 1182.16) {
+              if (prestacionFinalMenos180 > 1182.16) {
                 prestacionFinalMenos180 = 1182.16;
+                modificadoLimiteMaximo = true;
               }
             }
             if (double.tryParse(numHijosController.text) == 1) {
               if (prestacionFinalMas180 > 1351.04) {
                 prestacionFinalMas180 = 1351.04;
+                modificadoLimiteMaximo = true;
               }
-              if (prestacionFinalMenos180 < 1351.04) {
+              if (prestacionFinalMenos180 > 1351.04) {
                 prestacionFinalMenos180 = 1351.04;
+                modificadoLimiteMaximo = true;
               }
             }
 
             if (double.tryParse(numHijosController.text)! >= 1) {
               if (prestacionFinalMas180 < 722.80) {
                 prestacionFinalMas180 = 722.80;
+                modificadoLimiteMinimo = true;
               }
               if (prestacionFinalMenos180 < 722.80) {
                 prestacionFinalMenos180 = 722.80;
+                modificadoLimiteMinimo = true;
               }
             }
             if (double.tryParse(numHijosController.text)! > 1) {
               if (prestacionFinalMas180 > 1519.92) {
                 prestacionFinalMas180 = 1519.92;
+                modificadoLimiteMaximo = true;
               }
-              if (prestacionFinalMenos180 < 1519.92) {
+              if (prestacionFinalMenos180 > 1519.92) {
                 prestacionFinalMenos180 = 1519.92;
+                modificadoLimiteMaximo = true;
               }
             }
+
+            if (modificadoLimiteMinimo || modificadoLimiteMaximo) {
+              Widget okButton = TextButton(
+                child: Text("ENTENDIDO"),
+                onPressed: () =>
+                    Navigator.of(context, rootNavigator: true).pop('dialog'),
+              );
+
+              String textoModificacionLimite = '';
+              if (modificadoLimiteMinimo) {
+                textoModificacionLimite = "Se ha modificado el tope mínimo.";
+              }
+              if (modificadoLimiteMaximo) {
+                textoModificacionLimite = "Se ha modificado el tope máximo.";
+              }
+              AlertDialog alert = AlertDialog(
+                title: const Text("Se han modificado los topes"),
+                content: Text(textoModificacionLimite),
+                actions: [
+                  okButton,
+                ],
+              );
+
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return alert;
+                },
+              );
+            }
+            //Euros dias
+            //contingencias comunes se restan después de aplicar los límites
+            //Ventana emergente cuando se aplica un límite
 
             double contingenciasComunes = baseReguladoraDiaria * 0.047 * 30;
 
