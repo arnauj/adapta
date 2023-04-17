@@ -12,6 +12,9 @@ class PrestacionDesempleoScreen extends StatefulWidget {
   int prestacionMeses = 0;
   int prestacionAnhos = 0;
 
+  // Crea una lista de booleanos inicializada en false
+  List<bool> errorCamposBase = List<bool>.generate(10, (index) => false);
+
   @override
   State<PrestacionDesempleoScreen> createState() =>
       _PrestacionDesempleoScreenState();
@@ -26,6 +29,11 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
   final base4Controller = TextEditingController();
   final base5Controller = TextEditingController();
   final base6Controller = TextEditingController();
+  final numHijosController = TextEditingController();
+
+  String resultadoCalculoPrestacion = '';
+
+  double baseReguladoraDiaria = 0;
 
   int diasPrestacion = 0;
   int dias180Menos = 0;
@@ -67,99 +75,136 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
 
   Center _pasoTres(Size size) {
     return Center(
-      child: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            child: Text(
-              'Bases Reguladoras',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _cajaBaseReguladora(size, "Base 1", 1),
-              _cajaBaseReguladora(size, "Base 2", 2),
-              _cajaBaseReguladora(size, "Base 3", 3),
-              _cajaBaseReguladora(size, "Base 4", 4),
-              _cajaBaseReguladora(size, "Base 5", 5),
-              _cajaBaseReguladora(size, "Base 6", 6),
-            ],
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              'Bases Reguladora Diaria',
-              style: TextStyle(fontSize: 14),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  'BRD = ',
-                  style: TextStyle(fontSize: 20),
-                ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Text(
+                'Días trabajados',
+                style: TextStyle(fontSize: 18),
               ),
-              Column(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(color: Colors.black),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),
-                      child: Text(
-                        (base1Controller.text == ''
-                                ? 'Base 1'
-                                : base1Controller.text) +
-                            ' + ' +
-                            (base2Controller.text == ''
-                                ? 'Base 2'
-                                : base2Controller.text) +
-                            ' + ' +
-                            (base3Controller.text == ''
-                                ? 'Base 3'
-                                : base3Controller.text) +
-                            ' + ' +
-                            (base4Controller.text == ''
-                                ? 'Base 4'
-                                : base4Controller.text) +
-                            ' + ' +
-                            (base5Controller.text == ''
-                                ? 'Base 5'
-                                : base5Controller.text) +
-                            ' + ' +
-                            (base6Controller.text == ''
-                                ? 'Base 6'
-                                : base6Controller.text),
-                        style: const TextStyle(fontSize: 20),
-                      ),
+            ),
+            Text(
+              diasPrestacion.toString(),
+              style: const TextStyle(
+                  fontSize: 48,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            diasPrestacion < 360
+                ? const Text(
+                    "El periodo mínimo de cotización deben ser 360 días en los últimos 6 años",
+                    style: TextStyle(fontSize: 28))
+                : restoCalculoBRD(size),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Column restoCalculoBRD(Size size) {
+    return Column(
+      children: [
+        const Text(
+          'Bases Reguladoras',
+          style: TextStyle(fontSize: 18),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _cajaBaseReguladora(size, "Base 1", 1),
+            _cajaBaseReguladora(size, "Base 2", 2),
+            _cajaBaseReguladora(size, "Base 3", 3),
+            _cajaBaseReguladora(size, "Base 4", 4),
+            _cajaBaseReguladora(size, "Base 5", 5),
+            _cajaBaseReguladora(size, "Base 6", 6),
+          ],
+        ),
+        const SizedBox(
+          height: 50,
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Text(
+            'Base Reguladora Diaria',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+              child: Text(
+                'BRD = ',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            Column(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: Colors.black),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 5),
                     child: Text(
-                      '180',
-                      style: TextStyle(fontSize: 20),
+                      '${base1Controller.text == '' ? 'Base 1' : base1Controller.text} + ${base2Controller.text == '' ? 'Base 2' : base2Controller.text} + ${base3Controller.text == '' ? 'Base 3' : base3Controller.text} + ${base4Controller.text == '' ? 'Base 4' : base4Controller.text} + ${base5Controller.text == '' ? 'Base 5' : base5Controller.text} + ${base6Controller.text == '' ? 'Base 6' : base6Controller.text}',
+                      style: const TextStyle(fontSize: 20),
                     ),
-                  )
-                ],
-              )
-            ],
-          )
-        ],
-      ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 5, 70, 0),
+                  child: Text(
+                    '180',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                )
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+              child: Text(
+                ' = ${baseReguladoraDiaria.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 20),
+              ),
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 50,
+        ),
+        const Text(
+          "Número de Hijos",
+          style: TextStyle(fontSize: 20),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        _cajaBaseReguladora(size, "Número de hijos", 7),
+        Padding(
+            padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+            child: Text(resultadoCalculoPrestacion,
+                style: TextStyle(fontSize: 20)))
+      ],
     );
   }
 
   SizedBox _cajaBaseReguladora(Size size, String texto, int base) {
     TextEditingController controlador;
+
+    String textoBase = "Base reguladora $base";
+
     switch (base) {
       case 1:
         controlador = base1Controller;
@@ -176,8 +221,14 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
       case 5:
         controlador = base5Controller;
         break;
-      default:
+      case 6:
         controlador = base6Controller;
+        break;
+      default:
+        controlador = numHijosController;
+
+        textoBase = "Número de hijos";
+
         break;
     }
 
@@ -188,13 +239,151 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
         controller: controlador,
         keyboardType: TextInputType.number,
         onChanged: (value) {
-          print(">>>>>>>>>>>>>" + value);
+          baseReguladoraDiaria = 0.0;
+
+          if (double.tryParse(base1Controller.text) != null) {
+            baseReguladoraDiaria += double.parse(base1Controller.text);
+          }
+          if (double.tryParse(base2Controller.text) != null) {
+            baseReguladoraDiaria += double.parse(base2Controller.text);
+          }
+          if (double.tryParse(base3Controller.text) != null) {
+            baseReguladoraDiaria += double.parse(base3Controller.text);
+          }
+          if (double.tryParse(base4Controller.text) != null) {
+            baseReguladoraDiaria += double.parse(base4Controller.text);
+          }
+          if (double.tryParse(base5Controller.text) != null) {
+            baseReguladoraDiaria += double.parse(base5Controller.text);
+          }
+          if (double.tryParse(base6Controller.text) != null) {
+            baseReguladoraDiaria += double.parse(base6Controller.text);
+          }
+
+          baseReguladoraDiaria = baseReguladoraDiaria / 180;
+
+          print("baseReguladoraDiaria>" +
+              base.toString() +
+              '<' +
+              baseReguladoraDiaria.toString());
+
+          //baseReguladoraDiaria++;
+
+          if (double.tryParse(base6Controller.text) != null &&
+              double.tryParse(base5Controller.text) != null &&
+              double.tryParse(base4Controller.text) != null &&
+              double.tryParse(base3Controller.text) != null &&
+              double.tryParse(base2Controller.text) != null &&
+              double.tryParse(base1Controller.text) != null &&
+              double.tryParse(numHijosController.text) != null) {
+            double prestacionFinalMenos180 = 0;
+            double prestacionFinalMas180 = 0;
+
+            if (dias180Menos > 0) {
+              prestacionFinalMenos180 = 30 * 0.7 * baseReguladoraDiaria;
+            }
+
+            if (dias180Mas > 0) {
+              prestacionFinalMas180 = 30 * 0.4 * baseReguladoraDiaria;
+            }
+
+            //Fijar cantidades mínimas
+            if (double.tryParse(numHijosController.text) == 0) {
+              if (prestacionFinalMas180 < 540.41) {
+                prestacionFinalMas180 = 540.41;
+              }
+              if (prestacionFinalMenos180 < 540.41) {
+                prestacionFinalMenos180 = 540.41;
+              }
+              if (prestacionFinalMas180 > 1182.16) {
+                prestacionFinalMas180 = 1182.16;
+              }
+              if (prestacionFinalMenos180 < 1182.16) {
+                prestacionFinalMenos180 = 1182.16;
+              }
+            }
+            if (double.tryParse(numHijosController.text) == 1) {
+              if (prestacionFinalMas180 > 1351.04) {
+                prestacionFinalMas180 = 1351.04;
+              }
+              if (prestacionFinalMenos180 < 1351.04) {
+                prestacionFinalMenos180 = 1351.04;
+              }
+            }
+
+            if (double.tryParse(numHijosController.text)! >= 1) {
+              if (prestacionFinalMas180 < 722.80) {
+                prestacionFinalMas180 = 722.80;
+              }
+              if (prestacionFinalMenos180 < 722.80) {
+                prestacionFinalMenos180 = 722.80;
+              }
+            }
+            if (double.tryParse(numHijosController.text)! > 1) {
+              if (prestacionFinalMas180 > 1519.92) {
+                prestacionFinalMas180 = 1519.92;
+              }
+              if (prestacionFinalMenos180 < 1519.92) {
+                prestacionFinalMenos180 = 1519.92;
+              }
+            }
+
+            double contingenciasComunes = baseReguladoraDiaria * 0.047 * 30;
+
+            double netoFinalMenos180 =
+                prestacionFinalMenos180 - contingenciasComunes;
+            double netoFinalMas180 =
+                prestacionFinalMas180 - contingenciasComunes;
+
+            double duracionPrestacion = 0;
+            if (diasPrestacion >= 360 && diasPrestacion <= 539) {
+              duracionPrestacion = 120;
+            } else if (diasPrestacion >= 540 && diasPrestacion <= 719) {
+              duracionPrestacion = 180;
+            } else if (diasPrestacion >= 720 && diasPrestacion <= 899) {
+              duracionPrestacion = 240;
+            } else if (diasPrestacion >= 900 && diasPrestacion <= 1079) {
+              duracionPrestacion = 300;
+            } else if (diasPrestacion >= 1080 && diasPrestacion <= 1259) {
+              duracionPrestacion = 360;
+            } else if (diasPrestacion >= 1260 && diasPrestacion <= 1439) {
+              duracionPrestacion = 420;
+            } else if (diasPrestacion >= 1440 && diasPrestacion <= 1619) {
+              duracionPrestacion = 480;
+            } else if (diasPrestacion >= 1620 && diasPrestacion <= 1799) {
+              duracionPrestacion = 540;
+            } else if (diasPrestacion >= 1800 && diasPrestacion <= 1979) {
+              duracionPrestacion = 600;
+            } else if (diasPrestacion >= 1980 && diasPrestacion <= 2159) {
+              duracionPrestacion = 660;
+            } else if (diasPrestacion >= 2160) {
+              duracionPrestacion = 720;
+            }
+
+            resultadoCalculoPrestacion = """
+              Prestación -180 días: ${prestacionFinalMenos180.toStringAsFixed(2)}€
+              Prestación +180 días: ${prestacionFinalMas180.toStringAsFixed(2)}€
+              Contingencias Comunes: ${contingenciasComunes.toStringAsFixed(2)}€
+              Neto -180 días: ${netoFinalMenos180.toStringAsFixed(2)}€
+              Neto +180 días: ${netoFinalMas180.toStringAsFixed(2)}€
+              Días total Prestación: ${duracionPrestacion.round()} días
+            """;
+          }
+
+          setState(() {
+            widget.errorCamposBase[base] = double.tryParse(value) == null;
+          });
         },
         decoration: InputDecoration(
-          border: const OutlineInputBorder(),
+          border: widget.errorCamposBase[base]
+              ? const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red, width: 2.0),
+                )
+              : const OutlineInputBorder(),
           labelText: texto,
-          prefixIcon: const Icon(Icons.badge_sharp),
-          hintText: "Base reguladora $base",
+          prefixIcon: Icon(base <= 6 ? Icons.badge_sharp : Icons.child_care),
+          hintText: textoBase,
+          errorText: widget.errorCamposBase[base] ? 'Debe ser numérico' : null,
         ),
       ),
     );
