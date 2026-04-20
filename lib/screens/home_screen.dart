@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                     color: const Color(0xFFE53935),
                     onTap: () async {
                       FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
+                          await FilePicker.pickFiles(
                         type: FileType.custom,
                         allowedExtensions: ['pdf'],
                       );
@@ -105,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                     color: const Color(0xFF1E88E5),
                     onTap: () async {
                       FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
+                          await FilePicker.pickFiles(
                         type: FileType.custom,
                         allowedExtensions: ['jpg', 'gif', 'png'],
                       );

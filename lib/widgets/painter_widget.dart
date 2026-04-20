@@ -90,8 +90,8 @@ class _PainterWidgetState extends State<PainterWidget> {
             notifier: notifier,
             drawPen: true,
           ),
-          StateNotifierBuilder<ScribbleState>(
-            stateNotifier: notifier,
+          ValueListenableBuilder<ScribbleState>(
+            valueListenable: notifier,
             builder: (context, state, _) => SingleChildScrollView(
               controller: scrollController,
               child: Padding(

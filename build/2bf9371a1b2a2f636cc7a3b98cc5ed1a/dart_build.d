@@ -1,1 +1,1 @@
- /home/juanra/Escritorio/adapta/build/2bf9371a1b2a2f636cc7a3b98cc5ed1a/dart_build_result.json: 
+ /home/juanra/Escritorio/adapta/build/2bf9371a1b2a2f636cc7a3b98cc5ed1a/dart_build_result.json:  /home/juanra/Escritorio/adapta/.dart_tool/package_config.json /home/juanra/Escritorio/adapta/pubspec.yaml /home/juanra/flutter/bin/cache/dart-sdk/version
