@@ -1,0 +1,1 @@
+ /home/juanra/Escritorio/adapta/build/2bf9371a1b2a2f636cc7a3b98cc5ed1a/dart_build_result.json: 

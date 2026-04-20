@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
-
-// ignore: must_be_immutable
 class BoxIntroWidget extends StatelessWidget {
-  String texto;
+  final String texto;
+  final IconData icon;
+  final Color color;
+  final Function onTap;
 
-  IconData icon;
-
-  Color color;
-
-  Function onTap;
-
-  BoxIntroWidget({
+  const BoxIntroWidget({
     Key? key,
     required this.texto,
     required this.icon,
@@ -23,73 +16,57 @@ class BoxIntroWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lightColor = Color.lerp(color, Colors.white, 0.38)!;
+    final iconSize = MediaQuery.of(context).size.width / 16;
+
     return GestureDetector(
       onTap: () => onTap(),
-      child: Card(
-        elevation: 5,
-        child: Stack(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          gradient: LinearGradient(
+            colors: [color, lightColor],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.45),
+              blurRadius: 12,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(5),
+                color: Colors.white.withOpacity(0.22),
+                shape: BoxShape.circle,
               ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(4),
-                  bottomRight: Radius.circular(4),
-                ),
-                child: WaveWidget(
-                  config: CustomConfig(
-                    colors: [
-                      Colors.blue[400]!,
-                      Colors.blue[300]!,
-                      Colors.blue[200]!,
-                      Colors.blue[100]!
-                    ],
-                    durations: [18000, 8000, 5000, 12000],
-                    heightPercentages: [0.65, 0.66, 0.68, 0.70],
-                  ),
-                  size: const Size(double.infinity, double.infinity),
-                  waveAmplitude: 0,
-                ),
-              ),
+              child: Icon(icon, color: Colors.white, size: iconSize),
             ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: FittedBox(
-                    fit: BoxFit.cover,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        texto,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: MediaQuery.of(context).size.width * 0.02,
-                        ),
-                      ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                texto,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: MediaQuery.of(context).size.width * 0.018,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
                     ),
-                  ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Icon(
-                    icon,
-                    color: Colors.white,
-                    size: MediaQuery.of(context).size.width / 14,
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),

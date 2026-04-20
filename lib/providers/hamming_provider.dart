@@ -248,51 +248,51 @@ class Hamming with ChangeNotifier {
     notifyListeners();
   }
 
-  void cambiar(int nuevo_digito) {
-    if (nuevo_digito == 1) {
+  void cambiar(int nuevoDigito) {
+    if (nuevoDigito == 1) {
       bit1 = bit1 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 2) {
+    if (nuevoDigito == 2) {
       bit2 = bit2 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 3) {
+    if (nuevoDigito == 3) {
       bit3 = bit3 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 4) {
+    if (nuevoDigito == 4) {
       bit4 = bit4 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 5) {
+    if (nuevoDigito == 5) {
       bit5 = bit5 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 6) {
+    if (nuevoDigito == 6) {
       bit6 = bit6 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 7) {
+    if (nuevoDigito == 7) {
       bit7 = bit7 == 1 ? 0 : 1;
     }
 
-    if (nuevo_digito == 8) {
+    if (nuevoDigito == 8) {
       bit8 = bit8 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 9) {
+    if (nuevoDigito == 9) {
       bit9 = bit9 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 10) {
+    if (nuevoDigito == 10) {
       bit10 = bit10 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 11) {
+    if (nuevoDigito == 11) {
       bit11 = bit11 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 12) {
+    if (nuevoDigito == 12) {
       bit12 = bit12 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 13) {
+    if (nuevoDigito == 13) {
       bit13 = bit13 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 14) {
+    if (nuevoDigito == 14) {
       bit14 = bit14 == 1 ? 0 : 1;
     }
-    if (nuevo_digito == 15) {
+    if (nuevoDigito == 15) {
       bit15 = bit15 == 1 ? 0 : 1;
     }
 
@@ -422,6 +422,6 @@ class Hamming with ChangeNotifier {
   }
 
   String valores() {
-    return "bitpar1: ${bitpar1}, bitpar2: ${bitpar2}, bitpar4: ${bitpar4},bit1: ${bit1},bit2: ${bit2}, bit3: ${bit3}, bit4: ${bit4}, bit5: ${bit5}, bit6: ${bit6}, bit7: ${bit7} ";
+    return "bitpar1: $bitpar1, bitpar2: $bitpar2, bitpar4: $bitpar4,bit1: $bit1,bit2: $bit2, bit3: $bit3, bit4: $bit4, bit5: $bit5, bit6: $bit6, bit7: $bit7 ";
   }
 }

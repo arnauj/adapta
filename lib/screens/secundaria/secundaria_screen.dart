@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:adapta/screens/screens.dart';
 import 'package:adapta/widgets/widgets.dart';
 
 class SecundariaScreen extends StatelessWidget {
@@ -11,69 +12,124 @@ class SecundariaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    final Set<Map<String, dynamic>> familiasProfesionales = {
-      {"nombre": "Lengua Castellana y Literatura", "icon": Icons.language},
-      {"nombre": "Primera Lengua Extranjera Inglés", "icon": Icons.flag},
-      {"nombre": "Geografía e Historia", "icon": Icons.history},
-      {"nombre": "Matemáticas", "icon": Icons.calculate},
-      {"nombre": "Biología y Geología", "icon": Icons.biotech_outlined},
-      {"nombre": "Física y Química", "icon": Icons.hot_tub_rounded},
-      {"nombre": "Educación Física", "icon": Icons.sports_gymnastics},
-      {"nombre": "Religión / Valores Éticos", "icon": Icons.person},
-      {"nombre": "Segunda Lengua Extranjera", "icon": Icons.flag_sharp},
+    final asignaturas = <Map<String, dynamic>>[
       {
-        "nombre": "Educación Plástica y Visual",
-        "icon": Icons.view_stream_outlined
-      },
-      {"nombre": "Música", "icon": Icons.music_note},
-      {"nombre": "Tecnología", "icon": Icons.electric_bolt},
-      {
-        "nombre": "Prácticas Comunicativas y Creativas",
-        "icon": Icons.broadcast_on_personal
+        'nombre': 'Física y Química',
+        'icon': Icons.science_rounded,
+        'ruta': FisicaQuimicaScreen.route,
       },
       {
-        "nombre": "Tecnologías de la Información y la Comunicación",
-        "icon": Icons.computer
-      }
-    };
+        'nombre': 'Matemáticas',
+        'icon': Icons.calculate_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Lengua Castellana y Literatura',
+        'icon': Icons.menu_book_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Inglés',
+        'icon': Icons.flag_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Geografía e Historia',
+        'icon': Icons.history_edu_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Biología y Geología',
+        'icon': Icons.biotech_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Educación Física',
+        'icon': Icons.sports_gymnastics_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Religión / Valores Éticos',
+        'icon': Icons.person_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Segunda Lengua Extranjera',
+        'icon': Icons.translate_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Educación Plástica y Visual',
+        'icon': Icons.brush_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Música',
+        'icon': Icons.music_note_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Tecnología',
+        'icon': Icons.electric_bolt_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Prácticas Comunicativas',
+        'icon': Icons.record_voice_over_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'TIC',
+        'icon': Icons.computer_rounded,
+        'ruta': null,
+      },
+    ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Especialidades"),
-        backgroundColor: Colors.brown,
+        title: const Text('Asignaturas de Secundaria'),
+        backgroundColor: Colors.brown.shade600,
       ),
-      body: Center(
-        child: GridView.count(
-            primary: false,
-            // physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(20),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: size.width > size.height ? 5 : 4,
-            children: <Widget>[
-              for (var item in familiasProfesionales)
-                BoxIntroWidget(
-                  texto: item['nombre'],
-                  icon: item['icon'],
-                  color: Colors.brown,
-                  onTap: () => showDialog<String>(
+      body: GridView.count(
+        primary: false,
+        padding: const EdgeInsets.all(20),
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        crossAxisCount: size.width > size.height ? 5 : 4,
+        children: [
+          for (final item in asignaturas)
+            BoxIntroWidget(
+              texto: item['nombre'] as String,
+              icon: item['icon'] as IconData,
+              color: item['ruta'] != null
+                  ? Colors.brown.shade500
+                  : Colors.brown.shade400,
+              onTap: () {
+                final ruta = item['ruta'] as String?;
+                if (ruta != null) {
+                  Navigator.pushNamed(context, ruta);
+                } else {
+                  showDialog<void>(
                     context: context,
-                    builder: (BuildContext context) => AlertDialog(
+                    builder: (ctx) => AlertDialog(
                       title: const Text('En desarrollo'),
                       content: const Text(
-                          'Se irán añadiendo ejercicios de las diferentes especialidades. Si quieres enviar aportar alguna idea, envía un email a adapta@programacionSecundaria.es'),
-                      actions: <Widget>[
+                          'Se irán añadiendo ejercicios de las diferentes '
+                          'especialidades. Si quieres aportar alguna idea, '
+                          'envía un email a adapta@programacionSecundaria.es'),
+                      actions: [
                         TextButton(
-                          onPressed: () => Navigator.pop(context, 'OK'),
+                          onPressed: () => Navigator.pop(ctx),
                           child: const Text('OK'),
                         ),
                       ],
                     ),
-                  ),
-                ),
-            ]),
+                  );
+                }
+              },
+            ),
+        ],
       ),
-      //appBar: AppBar(title: Center(child: Text("ADAPTA"))),
     );
   }
 }

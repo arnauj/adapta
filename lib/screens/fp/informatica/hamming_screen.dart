@@ -40,7 +40,7 @@ class HammingScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 GestureDetector(
@@ -79,13 +79,13 @@ class HammingScreen extends StatelessWidget {
           children: [
             _CajaDigito(
               texto: "P1",
-              color: Color.fromARGB(255, 241, 178, 40),
+              color: const Color.fromARGB(255, 241, 178, 40),
               mostrarLinea: false,
               digito: Provider.of<Hamming>(context, listen: false).nulo,
             ),
             _CajaDigito(
               texto: "P2",
-              color: Color.fromARGB(255, 241, 178, 40),
+              color: const Color.fromARGB(255, 241, 178, 40),
               mostrarLinea: false,
               digito: Provider.of<Hamming>(context, listen: false).nulo,
             ),
@@ -97,7 +97,7 @@ class HammingScreen extends StatelessWidget {
             ),
             _CajaDigito(
               texto: "P4",
-              color: Color.fromARGB(255, 241, 178, 40),
+              color: const Color.fromARGB(255, 241, 178, 40),
               mostrarLinea: false,
               digito: Provider.of<Hamming>(context, listen: false).nulo,
             ),
@@ -252,13 +252,13 @@ class HammingScreen extends StatelessWidget {
           children: [
             _CajaDigito(
               texto: "P1",
-              color: Color.fromARGB(255, 241, 178, 40),
+              color: const Color.fromARGB(255, 241, 178, 40),
               mostrarLinea: false,
               digito: Provider.of<Hamming>(context, listen: false).nulo,
             ),
             _CajaDigito(
               texto: "P2",
-              color: Color.fromARGB(255, 241, 178, 40),
+              color: const Color.fromARGB(255, 241, 178, 40),
               mostrarLinea: false,
               digito: Provider.of<Hamming>(context, listen: false).nulo,
             ),
@@ -270,7 +270,7 @@ class HammingScreen extends StatelessWidget {
             ),
             _CajaDigito(
               texto: "P4",
-              color: Color.fromARGB(255, 241, 178, 40),
+              color: const Color.fromARGB(255, 241, 178, 40),
               mostrarLinea: false,
               digito: Provider.of<Hamming>(context, listen: false).nulo,
             ),
@@ -294,7 +294,7 @@ class HammingScreen extends StatelessWidget {
             ),
             _CajaDigito(
               texto: "P8",
-              color: Color.fromARGB(255, 241, 178, 40),
+              color: const Color.fromARGB(255, 241, 178, 40),
               mostrarLinea: false,
               digito: Provider.of<Hamming>(context, listen: false).nulo,
             ),

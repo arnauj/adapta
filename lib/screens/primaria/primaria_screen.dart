@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:adapta/screens/screens.dart';
 import 'package:adapta/widgets/widgets.dart';
 
 class PrimariaScreen extends StatelessWidget {
@@ -11,64 +12,99 @@ class PrimariaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    final Set<Map<String, dynamic>> familiasProfesionales = {
+    final materias = <Map<String, dynamic>>[
       {
-        "nombre": "Conocimiento del Medio Natural, Social y Cultural",
-        "icon": Icons.people
+        'nombre': 'Matemáticas',
+        'icon': Icons.calculate_rounded,
+        'ruta': MatematicasPrimariaScreen.route,
       },
-      {"nombre": "Educación Artística", "icon": Icons.soup_kitchen},
       {
-        "nombre": "Educación en Valores Cívicos y Éticos",
-        "icon": Icons.emoji_people
+        'nombre': 'Conocimiento del Medio',
+        'icon': Icons.people_rounded,
+        'ruta': null,
       },
-      {"nombre": "Educación Física", "icon": Icons.sports_gymnastics},
-      {"nombre": "Lengua Castellana y Literatura", "icon": Icons.language},
-      {"nombre": "Lengua Extranjera", "icon": Icons.flag},
-      {"nombre": "Matemáticas", "icon": Icons.calculate},
       {
-        "nombre": "Educación Emocional y para la Creatividad",
-        "icon": Icons.dry
+        'nombre': 'Educación Artística',
+        'icon': Icons.palette_rounded,
+        'ruta': null,
       },
-      {"nombre": "Segunda Lengua Extranjera", "icon": Icons.flag},
-    };
+      {
+        'nombre': 'Ed. en Valores Cívicos',
+        'icon': Icons.emoji_people_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Educación Física',
+        'icon': Icons.sports_gymnastics_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Lengua Castellana',
+        'icon': Icons.menu_book_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Lengua Extranjera',
+        'icon': Icons.flag_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Ed. Emocional y Creatividad',
+        'icon': Icons.favorite_rounded,
+        'ruta': null,
+      },
+      {
+        'nombre': 'Segunda Lengua Extranjera',
+        'icon': Icons.translate_rounded,
+        'ruta': null,
+      },
+    ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Materias"),
-        backgroundColor: Colors.pink,
+        title: const Text('Materias de Primaria'),
+        backgroundColor: Colors.pink.shade600,
       ),
-      body: Center(
-        child: GridView.count(
-            primary: false,
-            // physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(20),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: size.width > size.height ? 5 : 4,
-            children: <Widget>[
-              for (var item in familiasProfesionales)
-                BoxIntroWidget(
-                  texto: item['nombre'],
-                  icon: item['icon'],
-                  color: Colors.pink,
-                  onTap: () => showDialog<String>(
+      body: GridView.count(
+        primary: false,
+        padding: const EdgeInsets.all(20),
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        crossAxisCount: size.width > size.height ? 5 : 4,
+        children: [
+          for (final item in materias)
+            BoxIntroWidget(
+              texto: item['nombre'] as String,
+              icon: item['icon'] as IconData,
+              color: item['ruta'] != null
+                  ? Colors.pink.shade500
+                  : Colors.pink.shade300,
+              onTap: () {
+                final ruta = item['ruta'] as String?;
+                if (ruta != null) {
+                  Navigator.pushNamed(context, ruta);
+                } else {
+                  showDialog<void>(
                     context: context,
-                    builder: (BuildContext context) => AlertDialog(
+                    builder: (ctx) => AlertDialog(
                       title: const Text('En desarrollo'),
                       content: const Text(
-                          'Se irán añadiendo ejercicios de las diferentes especialidades. Si quieres enviar aportar alguna idea, envía un email a adapta@programacionPrimaria.es'),
-                      actions: <Widget>[
+                          'Se irán añadiendo ejercicios de las diferentes '
+                          'materias. Si quieres aportar alguna idea, envía un '
+                          'email a adapta@programacionPrimaria.es'),
+                      actions: [
                         TextButton(
-                          onPressed: () => Navigator.pop(context, 'OK'),
+                          onPressed: () => Navigator.pop(ctx),
                           child: const Text('OK'),
                         ),
                       ],
                     ),
-                  ),
-                ),
-            ]),
+                  );
+                }
+              },
+            ),
+        ],
       ),
-      //appBar: AppBar(title: Center(child: Text("ADAPTA"))),
     );
   }
 }

@@ -50,8 +50,20 @@ class AppRoutes {
       icon: Icons.child_care,
     ),
     MenuOption(
+      route: MatematicasPrimariaScreen.route,
+      name: 'Matemáticas Primaria',
+      screen: const MatematicasPrimariaScreen(),
+      icon: Icons.calculate,
+    ),
+    MenuOption(
+      route: FisicaQuimicaScreen.route,
+      name: 'Física y Química',
+      screen: const FisicaQuimicaScreen(),
+      icon: Icons.science,
+    ),
+    MenuOption(
       route: InformaticaScreen.route,
-      name: 'Informática y Comunicacioines',
+      name: 'Informática y Comunicaciones',
       screen: InformaticaScreen(),
       icon: Icons.computer,
     ),
@@ -69,9 +81,15 @@ class AppRoutes {
     ),
     MenuOption(
       route: PrestacionDesempleoScreen.route,
-      name: 'Presetacion por desempleo',
+      name: 'Prestación por desempleo',
       screen: PrestacionDesempleoScreen(),
       icon: Icons.work_history,
+    ),
+    MenuOption(
+      route: NominaScreen.route,
+      name: 'Calculadora de Nómina',
+      screen: const NominaScreen(),
+      icon: Icons.receipt_long,
     ),
   ];
 
@@ -98,14 +116,6 @@ class AppRoutes {
   static Widget _loadFirstScreen(Widget firstWidget) {
     return firstWidget;
   }
-
-  // static Map<String, Widget Function(BuildContext)> routes = {
-  //   'home'     : ( BuildContext context ) => const HomeScreen(),
-  //   'listview1': ( BuildContext context ) => const Listview1Screen(),
-  //   'listview2': ( BuildContext context ) => const Listview2Screen(),
-  //   'alert'    : ( BuildContext context ) => const AlertScreen(),
-  //   'card'     : ( BuildContext context ) => const CardScreen(),
-  // };
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(

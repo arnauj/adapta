@@ -173,10 +173,10 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
               child: Text(
                 ' = ${baseReguladoraDiaria.toStringAsFixed(2)} €/día',
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             )
           ],
@@ -193,9 +193,9 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
         ),
         _cajaBaseReguladora(size, "Número de hijos", 7),
         Padding(
-            padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
             child: Text(resultadoCalculoPrestacion,
-                style: TextStyle(fontSize: 20)))
+                style: const TextStyle(fontSize: 20)))
       ],
     );
   }
@@ -342,7 +342,7 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
 
             if (modificadoLimiteMinimo || modificadoLimiteMaximo) {
               Widget okButton = TextButton(
-                child: Text("ENTENDIDO"),
+                child: const Text("ENTENDIDO"),
                 onPressed: () =>
                     Navigator.of(context, rootNavigator: true).pop('dialog'),
               );
@@ -531,7 +531,7 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
                 widget.prestacionMeses * 30 +
                 widget.prestacionAnhos * 365;
 
-            print("Días prestacion" + diasPrestacion.toString());
+            print("Días prestacion$diasPrestacion");
 
             if (diasPrestacion <= 180) {
               dias180Menos = diasPrestacion;
@@ -584,20 +584,20 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
               fillColor: Colors.greenAccent,
             ),
             dropdownColor: Colors.greenAccent,
-            value: elementoInput,
+            initialValue: elementoInput,
             onChanged: (int? newValue) {
               setState(() {
                 elementoInput = newValue!;
 
                 switch (anhoMesDia) {
                   case 'anho':
-                    widget.prestacionAnhos = newValue!;
+                    widget.prestacionAnhos = newValue;
                     break;
                   case 'mes':
-                    widget.prestacionMeses = newValue!;
+                    widget.prestacionMeses = newValue;
                     break;
                   case 'dia':
-                    widget.prestacionDias = newValue!;
+                    widget.prestacionDias = newValue;
                     break;
                 }
               });
@@ -625,7 +625,7 @@ class _PrestacionDesempleoScreenState extends State<PrestacionDesempleoScreen> {
           paso = 2;
         } else {
           Widget okButton = TextButton(
-            child: Text("ENTENDIDO"),
+            child: const Text("ENTENDIDO"),
             onPressed: () =>
                 Navigator.of(context, rootNavigator: true).pop('dialog'),
           );

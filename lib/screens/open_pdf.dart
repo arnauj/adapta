@@ -83,7 +83,7 @@ class _OpenPdfState extends State<OpenPdf> {
       appBar: AppBar(
         title: TextField(
           controller: _searchTextEditingController,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
